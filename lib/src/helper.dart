@@ -30,7 +30,7 @@ class ToastAlert {
                     child: Container(
                       padding: EdgeInsets.all(6),
                       child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.center,
