@@ -5,7 +5,8 @@ class ToastAlert {
 
   void show({
     @required BuildContext context,
-    @required WidgetBuilder externalBuilder,
+    @required IconData icon,
+    @required String title,
     Duration duration = const Duration(seconds: 2),
     Offset position = Offset.zero,
   }) async {
@@ -18,8 +19,49 @@ class ToastAlert {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = new OverlayEntry(
       builder: (BuildContext context) => ToastView(
-        child: externalBuilder(context),
-      ),
+          child: Container(
+              alignment: Alignment.center,
+              child: Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    color: Theme.of(context).primaryColor.withOpacity(0.85),
+                    child: Container(
+                      padding: EdgeInsets.all(6),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Flexible(
+                                child: Padding(
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: Icon(
+                                icon,
+                                size: 60,
+                              ),
+                            )),
+                            title == null && title == null
+                                ? Container()
+                                : Flexible(
+                                    child: Text(
+                                      title ?? title ?? '',
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .subtitle
+                                          .copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                    ),
+                                  )
+                          ],
+                        ),
+                      ),
+                    ),
+                  )))),
     );
     overlayState.insert(overlayEntry);
 
