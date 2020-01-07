@@ -36,25 +36,25 @@ class ToastAlert {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Flexible(
-                                child: Padding(
-                              padding: const EdgeInsets.only(bottom: 5.0),
-                              child: Icon(
-                                icon,
-                                size: 60,
-                              ),
+                                child: Icon(
+                              icon,
+                              size: 60,
                             )),
                             title == null || title == ''
                                 ? Container()
                                 : Flexible(
-                                    child: Text(
-                                      title ?? '',
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle
-                                          .copyWith(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 5.0),
+                                      child: Text(
+                                        title ?? '',
+                                        textAlign: TextAlign.center,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   )
                           ],
