@@ -6,7 +6,7 @@ class ToastAlert {
   void show({
     @required BuildContext context,
     @required IconData icon,
-    @required String title,
+    String title,
     Duration duration = const Duration(seconds: 2),
     Offset position = Offset.zero,
   }) async {
@@ -36,18 +36,21 @@ class ToastAlert {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Flexible(
+                                fit: title == null || title == ''
+                                    ? FlexFit.tight
+                                    : FlexFit.loose,
                                 child: Padding(
-                              padding: const EdgeInsets.only(bottom: 5.0),
-                              child: Icon(
-                                icon,
-                                size: 60,
-                              ),
-                            )),
-                            title == null && title == null
+                                  padding: const EdgeInsets.only(bottom: 5.0),
+                                  child: Icon(
+                                    icon,
+                                    size: 60,
+                                  ),
+                                )),
+                            title == null || title == ''
                                 ? Container()
                                 : Flexible(
                                     child: Text(
-                                      title ?? title ?? '',
+                                      title ?? '',
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
