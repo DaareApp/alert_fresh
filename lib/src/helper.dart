@@ -20,6 +20,9 @@ class ToastAlert {
     OverlayEntry overlayEntry = new OverlayEntry(
       builder: (BuildContext context) => ToastView(
           child: Container(
+              height: title == null || title == ''
+                  ? MediaQuery.of(context).size.height / 2.5
+                  : null,
               alignment: Alignment.center,
               child: Container(
                   width: MediaQuery.of(context).size.width / 1.5,
