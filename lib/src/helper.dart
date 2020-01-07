@@ -20,9 +20,6 @@ class ToastAlert {
     OverlayEntry overlayEntry = new OverlayEntry(
       builder: (BuildContext context) => ToastView(
           child: Container(
-              height: title == null || title == ''
-                  ? MediaQuery.of(context).size.height / 2.5
-                  : null,
               alignment: Alignment.center,
               child: Container(
                   width: MediaQuery.of(context).size.width / 1.5,
@@ -39,16 +36,13 @@ class ToastAlert {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Flexible(
-                                fit: title == null || title == ''
-                                    ? FlexFit.tight
-                                    : FlexFit.loose,
                                 child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 5.0),
-                                  child: Icon(
-                                    icon,
-                                    size: 60,
-                                  ),
-                                )),
+                              padding: const EdgeInsets.only(bottom: 5.0),
+                              child: Icon(
+                                icon,
+                                size: 60,
+                              ),
+                            )),
                             title == null || title == ''
                                 ? Container()
                                 : Flexible(
