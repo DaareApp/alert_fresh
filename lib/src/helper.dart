@@ -68,7 +68,6 @@ class ToastAlert {
     await new Future.delayed(duration);
 
     overlayEntry.remove();
-    overlayState.dispose();
 
     _isVisible = false;
   }
