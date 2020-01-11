@@ -26,7 +26,9 @@ class ToastAlert {
                   child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    color: Theme.of(context).primaryColor.withOpacity(0.85),
+                    color: title != null
+                        ? Theme.of(context).primaryColor.withOpacity(0.85)
+                        : Colors.transparent,
                     child: Container(
                       padding: EdgeInsets.all(6),
                       child: Padding(
@@ -38,6 +40,9 @@ class ToastAlert {
                             Flexible(
                                 child: Icon(
                               icon,
+                              color: title != null
+                                  ? null
+                                  : Theme.of(context).accentColor,
                               size: 60,
                             )),
                             title == null || title == ''
@@ -73,14 +78,43 @@ class ToastAlert {
   }
 }
 
-class ToastView extends StatelessWidget {
+class ToastView extends StatefulWidget {
   final Widget child;
 
   ToastView({this.child});
 
   @override
+  _ToastViewState createState() => _ToastViewState();
+}
+
+class _ToastViewState extends State<ToastView> with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this);
+    super.initState();
+
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this, value: 0.1);
+    _animation =
+        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return new IgnorePointer(
-        child: new Material(color: Colors.transparent, child: child));
+        child: new Material(
+            color: Colors.transparent,
+            child: ScaleTransition(scale: _animation, child: widget.child)));
   }
 }
