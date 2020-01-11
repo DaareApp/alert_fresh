@@ -6,6 +6,7 @@ class ToastAlert {
   void show({
     @required BuildContext context,
     @required IconData icon,
+    Color backgroundColor,
     String title,
     Duration duration = const Duration(seconds: 2),
     Offset position = Offset.zero,
@@ -29,7 +30,8 @@ class ToastAlert {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
                     color: title != null && title != ''
-                        ? Theme.of(context).accentColor.withOpacity(0.85)
+                        ? backgroundColor ??
+                            Theme.of(context).accentColor.withOpacity(0.85)
                         : Colors.transparent,
                     child: Container(
                       color: Colors.transparent,
@@ -120,7 +122,7 @@ class _ToastViewState extends State<ToastView> with TickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this, value: 0.2);
+        duration: const Duration(milliseconds: 250), vsync: this, value: 0.2);
     _animation = CurvedAnimation(parent: _controller, curve: Curves.linear);
 
     _controller.forward();
