@@ -22,14 +22,17 @@ class ToastAlert {
           child: Container(
               alignment: Alignment.center,
               child: Container(
+                  color: Colors.transparent,
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: Card(
+                    elevation: title != null && title != '' ? 20 : 0,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12)),
-                    color: title != null
-                        ? Theme.of(context).primaryColor.withOpacity(0.85)
+                    color: title != null && title != ''
+                        ? Theme.of(context).accentColor.withOpacity(0.85)
                         : Colors.transparent,
                     child: Container(
+                      color: Colors.transparent,
                       padding: EdgeInsets.all(6),
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -38,13 +41,33 @@ class ToastAlert {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Flexible(
-                                child: Icon(
-                              icon,
-                              color: title != null
-                                  ? null
-                                  : Theme.of(context).accentColor,
-                              size: 60,
-                            )),
+                              child: title != null && title != ''
+                                  ? Icon(
+                                      icon,
+                                      color: title != null
+                                          ? null
+                                          : Theme.of(context).accentColor,
+                                      size: 60,
+                                    )
+                                  : Stack(
+                                      children: <Widget>[
+                                        Positioned(
+                                          left: 0.4,
+                                          top: 0.4,
+                                          child: Icon(
+                                            icon,
+                                            color: Colors.black54,
+                                            size: 80,
+                                          ),
+                                        ),
+                                        Icon(
+                                          icon,
+                                          color: Theme.of(context).accentColor,
+                                          size: 80,
+                                        ),
+                                      ],
+                                    ),
+                            ),
                             title == null || title == ''
                                 ? Container()
                                 : Flexible(
@@ -97,9 +120,8 @@ class _ToastViewState extends State<ToastView> with TickerProviderStateMixin {
     super.initState();
 
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this, value: 0.1);
-    _animation =
-        CurvedAnimation(parent: _controller, curve: Curves.bounceInOut);
+        duration: const Duration(milliseconds: 500), vsync: this, value: 0.2);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.linear);
 
     _controller.forward();
   }
