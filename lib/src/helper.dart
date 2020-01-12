@@ -20,6 +20,7 @@ class ToastAlert {
     OverlayState overlayState = Overlay.of(context);
     OverlayEntry overlayEntry = new OverlayEntry(
       builder: (BuildContext context) => ToastView(
+          duration: duration,
           child: Container(
               alignment: Alignment.center,
               child: Container(
@@ -95,18 +96,18 @@ class ToastAlert {
     );
     overlayState.insert(overlayEntry);
 
-    await new Future.delayed(duration);
+    await Future.delayed(duration);
 
     overlayEntry.remove();
-
     _isVisible = false;
   }
 }
 
 class ToastView extends StatefulWidget {
   final Widget child;
+  final Duration duration;
 
-  ToastView({this.child});
+  ToastView({this.child, this.duration});
 
   @override
   _ToastViewState createState() => _ToastViewState();
@@ -120,6 +121,9 @@ class _ToastViewState extends State<ToastView> with TickerProviderStateMixin {
   void initState() {
     _controller = AnimationController(vsync: this);
     super.initState();
+
+    Future.delayed(widget.duration - Duration(milliseconds: 250))
+        .then((_) => _controller.reverse());
 
     _controller = AnimationController(
         duration: const Duration(milliseconds: 250), vsync: this, value: 0.2);
